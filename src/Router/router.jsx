@@ -7,6 +7,7 @@ import MainLayOut from '../LayOut/MainLayOut';
 import Home from '../pages/Home/Home';
 import JoinUs from '../pages/JoinUs/JoinUs';
 import AvailableCamps from '../pages/AvailableCamps/AvailableCamps';
+import Login from '../pages/Login/Login';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         {
           path:'availablecamps',
           element:<AvailableCamps></AvailableCamps>
+        },
+        {
+          path:'login',
+          element:<Login></Login>
         }
       ]
     },
