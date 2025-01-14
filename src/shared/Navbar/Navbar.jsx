@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
     const links = <>
         <li><Link to={'/'}>Home</Link></li>
-        <li><Link>Available Camps</Link></li>
-        <li><Link to={'/joinUs'}>Join US</Link></li>
+        <li><Link to={'/availablecamps'}>Available Camps</Link></li>
+        <li><Link to={'/contactUs'}>Contact Us</Link></li>
 
     </>
     return (
@@ -42,7 +42,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <a className="btn">Join US</a>
             </div>
         </div>
     );

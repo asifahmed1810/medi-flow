@@ -6,6 +6,7 @@ import {
 import MainLayOut from '../LayOut/MainLayOut';
 import Home from '../pages/Home/Home';
 import JoinUs from '../pages/JoinUs/JoinUs';
+import AvailableCamps from '../pages/AvailableCamps/AvailableCamps';
 
 const router = createBrowserRouter([
     {
@@ -17,8 +18,12 @@ const router = createBrowserRouter([
             element:<Home></Home>
         },
         {
-            path:'joinUs',
+            path:'contactUs',
             element:<JoinUs></JoinUs>
+        },
+        {
+          path:'availablecamps',
+          element:<AvailableCamps></AvailableCamps>
         }
       ]
     },
