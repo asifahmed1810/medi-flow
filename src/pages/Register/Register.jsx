@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -23,24 +25,24 @@ const Register = () => {
                             email: data.email,
 
                         }
-                        // axiosPublic.post('/users', userInfo)
-                        //     .then(res => {
-                        //         if (res.data.insertedId) {
+                        axios.post('http://localhost:5000/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
 
-                        //             console.log(`user added to the data base`)
-                        //             reset();
-                        //             Swal.fire({
-                        //                 position: 'top-end',
-                        //                 icon: 'success',
-                        //                 title: 'User created successfully.',
-                        //                 showConfirmButton: false,
-                        //                 timer: 1500
-                        //             });
-                        //             navigate('/');
+                                    console.log(`user added to the data base`)
+                                    reset();
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'User created successfully.',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/');
 
 
-                        //         }
-                        //     })
+                                }
+                            })
 
 
                     })

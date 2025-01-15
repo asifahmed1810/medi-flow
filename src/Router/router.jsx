@@ -9,6 +9,8 @@ import JoinUs from '../pages/JoinUs/JoinUs';
 import AvailableCamps from '../pages/AvailableCamps/AvailableCamps';
 import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
+import Dashboard from '../LayOut/Dashboard';
+import OrganizersProfile from '../pages/Dashboard/OrganizersProfile/OrganizersProfile';
 
 const router = createBrowserRouter([
     {
@@ -37,6 +39,16 @@ const router = createBrowserRouter([
         }
       ]
     },
+    {
+      path:'dashboard',
+      element:<Dashboard></Dashboard>,
+      children:[
+        {
+          path:'organizerProfile',
+          element:<OrganizersProfile></OrganizersProfile>
+        }
+      ]
+    }
   ]);
 
 export default router;
