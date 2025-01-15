@@ -1,15 +1,32 @@
-import React from 'react';
-import mediflow from '../../assets/mediflow.png';
-import medilogo from '../../assets/medilogo.png'
+import React, { useContext, useState } from 'react';
+import medilogo from '../../assets/medilogo.png';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Navbar = () => {
-    const links = <>
-        <li><Link to={'/'}>Home</Link></li>
-        <li><Link to={'/availablecamps'}>Available Camps</Link></li>
-        <li><Link to={'/contactUs'}>Contact Us</Link></li>
+    const { user, logOut } = useContext(AuthContext);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    </>
+    // Handle Logout
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error));
+    };
+
+    // Toggle dropdown visibility
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const links = (
+        <>
+            <li><Link to={'/'}>Home</Link></li>
+            <li><Link to={'/availablecamps'}>Available Camps</Link></li>
+            <li><Link to={'/contactUs'}>Contact Us</Link></li>
+        </>
+    );
+
     return (
         <div className="navbar fixed z-10 max-w-screen-xl mx-auto top-0 bg-cyan-100 rounded-xl px-10">
             <div className="navbar-start">
@@ -34,7 +51,7 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <img className='w-14 h-14 rounded-full' src={medilogo} alt="" />
+                <img className="w-14 h-14 rounded-full" src={medilogo} alt="Logo" />
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -42,7 +59,39 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to={'/login'}><a className="btn">Join US</a></Link>
+                {user ? (
+                    <div className="relative">
+                        <img
+                            className="w-10 h-10 rounded-full cursor-pointer"
+                            src={user.photoURL || 'https://via.placeholder.com/150'}
+                            alt="User Profile"
+                            onClick={toggleDropdown}
+                        />
+                        {isDropdownOpen && (
+                            <ul className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                                <li className="px-4 py-2 text-gray-700">{user.displayName || 'User'}</li>
+                                <li>
+                                    <Link
+                                        to="/dashboard"
+                                        className="block px-4 py-2 hover:bg-gray-100 text-gray-700">
+                                        Dashboard
+                                    </Link>
+                                </li>
+                                <li>
+                                    <button
+                                        onClick={handleLogOut}
+                                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700">
+                                        Logout
+                                    </button>
+                                </li>
+                            </ul>
+                        )}
+                    </div>
+                ) : (
+                    <Link to={'/login'}>
+                        <button className="btn">Join US</button>
+                    </Link>
+                )}
             </div>
         </div>
     );
