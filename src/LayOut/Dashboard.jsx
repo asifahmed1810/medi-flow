@@ -22,7 +22,7 @@ const Dashboard = () => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to={"/dashboard/addItems"}>
+                                    <NavLink to={"/dashboard/addcamp"}>
                                         <IoMdAdd className="mr-2 font-bold" />
                                         Add A Camp
                                     </NavLink>
