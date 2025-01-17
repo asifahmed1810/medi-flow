@@ -13,6 +13,7 @@ import Dashboard from '../LayOut/Dashboard';
 import OrganizersProfile from '../pages/Dashboard/OrganizersProfile/OrganizersProfile';
 import OrganizerAddCamp from '../pages/Dashboard/OrganizerAddCamp/OrganizerAddCamp';
 import CampDetailsPage from '../pages/CampDetailsPage/CampDetailsPage';
+import OrganizerManageCamps from '../pages/OrganizerManageCamps/OrganizerManageCamps';
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: 'addcamp',
         element: <OrganizerAddCamp></OrganizerAddCamp>
+      },
+      {
+        path:'manageCamp',
+        element:<OrganizerManageCamps></OrganizerManageCamps>
       }
     ]
   }

@@ -28,7 +28,7 @@ const Dashboard = () => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to={"/dashboard/managecamps"}>
+                                    <NavLink to={"/dashboard/manageCamp"}>
                                         <FaList className="mr-2" />
                                         Manage Camps
                                     </NavLink>
