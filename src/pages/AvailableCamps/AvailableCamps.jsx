@@ -3,6 +3,7 @@ import JoinCampModal from "../JoinCampModal/JoinCampModal";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AvailableCamps = () => {
   const [selectedCamp, setSelectedCamp] = useState(null);
@@ -11,14 +12,14 @@ const AvailableCamps = () => {
   const [sortCriteria, setSortCriteria] = useState("");
   const [isTwoColumn, setIsTwoColumn] = useState(false);
   const navigate = useNavigate();
+  const axiosSecure=useAxiosSecure();
 
   // Fetch camps using TanStack Query
   const { data: camps = [], isLoading, error } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/camps");
-      if (!res.ok) throw new Error("Failed to fetch camps");
-      return res.json();
+      const res = await axiosSecure.get("/camps");
+      return res.data;
     },
   });
 
@@ -99,11 +100,10 @@ const AvailableCamps = () => {
 
         {/* Camp Cards */}
         <div
-          className={`grid gap-6 ${
-            isTwoColumn
+          className={`grid gap-6 ${isTwoColumn
               ? "grid-cols-1 sm:grid-cols-2"
               : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-          }`}
+            }`}
         >
           {filteredCamps.map((camp) => (
             <div key={camp._id} className="bg-white p-4 rounded shadow">
