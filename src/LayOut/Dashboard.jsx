@@ -5,7 +5,7 @@ import { MdManageHistory } from "react-icons/md";
 import { NavLink, Outlet, Navigate } from "react-router-dom";
 
 const Dashboard = () => {
-    const isAdmin = true;
+    const isAdmin = false;
 
     return (
         <div className="flex flex-col md:flex-row min-h-screen">
@@ -44,33 +44,27 @@ const Dashboard = () => {
                             // User Links
                             <>
                                 <li>
-                                    <NavLink to="/dashboard/userHome">
+                                    <NavLink to="/dashboard/analytics">
                                         <FaHome className="mr-2" />
-                                        User Home
+                                        Analytics
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/history">
+                                    <NavLink to="/dashboard/userProfile">
                                         <FaList className="mr-2" />
-                                        Not History
+                                        Profile
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/cart">
+                                    <NavLink to="/dashboard/registeredCamps">
                                         <FaList className="mr-2" />
-                                        My Cart
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/dashboard/review">
-                                        <FaList className="mr-2" />
-                                        Add a Review
+                                        Registered Camps
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/paymentHistory">
                                         <FaList className="mr-2" />
-                                        Real Payment History
+                                        Payment History
                                     </NavLink>
                                 </li>
                             </>
@@ -100,8 +94,12 @@ const Dashboard = () => {
 
             {/* Main Content */}
             <div className="flex-1 p-4 md:p-8">
-                {/* If we're at the dashboard base path, navigate to /dashboard/organizerProfile */}
-                <Navigate to="/dashboard/organizerProfile" replace />
+                {/* Conditionally Navigate to the Default Page */}
+                {isAdmin ? (
+                    <Navigate to="/dashboard/organizerProfile" replace />
+                ) : (
+                    <Navigate to="/dashboard/analytics" replace />
+                )}
                 <Outlet />
             </div>
         </div>
