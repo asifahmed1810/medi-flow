@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -106,7 +107,12 @@ const Register = () => {
                                 <input className="btn btn-primary" type="submit" value="Sign Up" />
                             </div>
                         </form>
-                        <p><small>Already have an account <Link to="/login">Login</Link></small></p>
+                        <div className='p-4'>
+                            <p><small>Already have an account?</small> <Link to={'/login'}>Login</Link></p>
+
+                            <SocialLogin></SocialLogin>
+
+                        </div>
                         {/* <SocialLogin></SocialLogin> */}
                     </div>
                 </div>
