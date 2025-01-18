@@ -3,9 +3,10 @@ import { FaUser, FaList, FaSearch, FaEnvelope, FaHome } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { MdManageHistory } from "react-icons/md";
 import { NavLink, Outlet, Navigate } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-    const isAdmin = false;
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="flex flex-col md:flex-row min-h-screen">
@@ -35,6 +36,12 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink to={"/dashboard/manageregisteredcamps"}>
+                                        <MdManageHistory className="mr-2 text-lg" />
+                                        Manage Registered Camps
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={"/dashboard/allusers"}>
                                         <MdManageHistory className="mr-2 text-lg" />
                                         Manage Registered Camps
                                     </NavLink>

@@ -12,44 +12,39 @@ const Register = () => {
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const onSubmit = data => {
-        console.log(data);
-        createUser(data.email, data.password)
-            .then(result => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
-                updateUserProfile(data.name, data.photoURL)
-                    .then(() => {
-
-                        const userInfo = {
-                            name: data.name,
-                            email: data.email,
-
-                        }
-                        axios.post('http://localhost:5000/users', userInfo)
-                            .then(res => {
-                                if (res.data.insertedId) {
-
-                                    console.log(`user added to the data base`)
-                                    reset();
-                                    Swal.fire({
-                                        position: 'top-end',
-                                        icon: 'success',
-                                        title: 'User created successfully.',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                    navigate('/');
-
-
-                                }
-                            })
-
-
-                    })
-                    .catch(error => console.log(error))
-            })
+    const onSubmit = async (data) => {
+        try {
+            const result = await createUser(data.email, data.password);
+            const loggedUser = result.user;
+    
+            await updateUserProfile(data.name, data.photoURL);
+    
+            const userInfo = { name: data.name, email: data.email };
+            const res = await axios.post('http://localhost:5000/users', userInfo);
+    
+            if (res.data.insertedId) {
+                reset();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'User created successfully.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            if (error.code === 'auth/email-already-in-use') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'The email address is already in use. Please log in or use a different email.'
+                });
+            }
+        }
     };
+    
 
     return (
         <>

@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure"; // Import the hook
 import { AuthContext } from "../../../providers/AuthProvider";
 
 const OrganizersProfile = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure(); // Use the secure Axios instance
     const [profile, setProfile] = useState({
         name: "",
         image: "",
@@ -27,8 +28,8 @@ const OrganizersProfile = () => {
 
         console.log("Fetching profile for user:", user.email);
 
-        axios
-            .get(`http://localhost:5000/users?email=${user.email}`)
+        axiosSecure
+            .get(`/users?email=${user.email}`) // Use the secure Axios instance
             .then((response) => {
                 console.log("Fetched profile data:", response.data);
 
@@ -46,7 +47,7 @@ const OrganizersProfile = () => {
                 console.error("Error fetching profile data:", error);
                 setLoading(false);
             });
-    }, [user?.email]);
+    }, [user?.email, axiosSecure]);
 
     // Handle input changes
     const handleChange = (event) => {
@@ -83,12 +84,10 @@ const OrganizersProfile = () => {
 
             // Update backend profile if any changes are made
             if (isProfileUpdated()) {
-                const response = await axios.put("http://localhost:5000/users", profile);
+                const response = await axiosSecure.put("/users", profile); // Use the secure Axios instance
 
                 if (response.data.modifiedCount > 0) {
-                    // Update the initial profile to reflect the latest profile
-                    setInitialProfile(profile); // Make sure initialProfile reflects the latest update
-
+                    setInitialProfile(profile); // Update the initial profile
                     Swal.fire({
                         icon: "success",
                         title: "Profile updated successfully!",

@@ -18,6 +18,7 @@ import OrganizerUpdateCamp from '../pages/OrganizerUpdateCamp/OrganizerUpdateCam
 import ManageRegisteredCamp from '../pages/ManageRegisteredCamp/ManageRegisteredCamp';
 import UserAnalyticsPage from '../pages/UserAnalyticsPage/UserAnalyticsPage';
 import UserProfile from '../pages/UserProfile/UserProfile';
+import AllUsers from '../pages/Allusers/AllUsers';
 
 
 
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path:'manageregisteredcamps',
         element:<ManageRegisteredCamp></ManageRegisteredCamp>
+      },
+      {
+        path:'allusers',
+        element:<AllUsers></AllUsers>
       },
       {
         path:'analytics',

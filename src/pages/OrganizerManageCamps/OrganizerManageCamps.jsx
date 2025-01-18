@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2"; // Import SweetAlert
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+// Import the secure Axios hook
 
 const OrganizerManageCamps = () => {
     const [camps, setCamps] = useState([]);
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure(); // Initialize the secure Axios instance
 
     // Fetch camps from the server
     useEffect(() => {
         const fetchCamps = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/camps");
+                const response = await axiosSecure.get("/camps"); // Use the secure Axios instance
                 setCamps(response.data);
             } catch (error) {
                 console.error("Error fetching camps:", error);
             }
         };
         fetchCamps();
-    }, []);
+    }, [axiosSecure]);
 
     // Handle Delete Camp
     const handleDelete = async (campId) => {
@@ -33,7 +35,7 @@ const OrganizerManageCamps = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:5000/camps/${campId}`);
+                    await axiosSecure.delete(`/camps/${campId}`); // Use the secure Axios instance
                     setCamps((prevCamps) =>
                         prevCamps.filter((camp) => camp._id !== campId)
                     );

@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import JoinCampModal from '../JoinCampModal/JoinCampModal';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+ 
 
 const CampDetailsPage = () => {
   const { campId } = useParams();
   const [camp, setCamp] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const axiosSecure = useAxiosSecure(); // Initialize the secure Axios instance
 
+  // Fetch camp details securely
   useEffect(() => {
-    fetch(`http://localhost:5000/camps/${campId}`)
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            return res.json();
-        })
-        .then((data) => setCamp(data))
-        .catch((err) => console.error('Error fetching camp:', err));
-}, [campId]);
+    const fetchCampDetails = async () => {
+      try {
+        const response = await axiosSecure.get(`/camps/${campId}`);
+        setCamp(response.data);
+      } catch (error) {
+        console.error('Error fetching camp:', error);
+      }
+    };
 
+    fetchCampDetails();
+  }, [campId, axiosSecure]);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
