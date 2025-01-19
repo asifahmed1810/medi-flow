@@ -1,104 +1,168 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
+import Swal from 'sweetalert2';
+import axios from 'axios'; // Import axios to make HTTP requests
 
 const UserProfile = () => {
-    
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useContext(AuthContext); // Access user data from context
   const [profile, setProfile] = useState({
-    name: "John Doe",
-    image: "https://via.placeholder.com/150",
-    contact: "123-456-7890",
+    name: '',
+    image: '',
+    contact: '',
   });
 
-  const [editProfile, setEditProfile] = useState(profile);
+  const [isEditing, setIsEditing] = useState(false); // State to toggle between viewing and editing mode
 
-  const handleInputChange = (e) => {
+  useEffect(() => {
+    if (user) {
+      // Prefill the profile with logged-in user's data
+      setProfile({
+        name: user.displayName || '',
+        image: user.photoURL || 'https://via.placeholder.com/150', // Default image if not available
+        contact: '', // Assuming contact info is not available by default
+      });
+    }
+  }, [user]);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditProfile({ ...editProfile, [name]: value });
+    setProfile({ ...profile, [name]: value });
   };
 
-  const handleUpdateProfile = () => {
-    setProfile(editProfile);
-    setIsModalOpen(false);
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+
+    if (!user || !user.email) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Email is required to update the profile.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
+    try {
+      // Send the profile update request to the backend
+      const response = await axios.put('http://localhost:5000/users', {
+        email: user.email,  // Send email as part of the update request
+        name: profile.name,
+        image: profile.image,
+        contact: profile.contact,
+      });
+
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Profile updated successfully!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: response.data.message || 'Failed to update profile. Please try again.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+
+      // After successful update, exit the editing mode
+      setIsEditing(false);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed to update profile. Please try again.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
+
+  if (!user) {
+    return <p>Please log in to view and manage your profile.</p>;
+  }
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Participant Profile</h1>
-
-      {/* Profile Display */}
-      <div className="flex items-center gap-4 mb-4">
-        <img
-          src={profile.image}
-          alt="Profile"
-          className="w-16 h-16 rounded-full object-cover"
-        />
+    <div className="container mx-auto mt-10 p-5 max-w-2xl">
+      <h2 className="text-3xl font-bold mb-5">Manage Your Profile</h2>
+      
+      {!isEditing ? (
+        // Display profile if not editing
         <div>
-          <p className="text-lg font-semibold">{profile.name}</p>
-          <p className="text-gray-600">{profile.contact}</p>
-        </div>
-      </div>
-
-      {/* Update Button */}
-      <button
-        className="px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Update Profile
-      </button>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded shadow-lg max-w-md w-full">
-            <h2 className="text-xl font-bold mb-4">Edit Profile</h2>
-            <form>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={editProfile.name}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">Image URL</label>
-                <input
-                  type="text"
-                  name="image"
-                  value={editProfile.image}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">Contact</label>
-                <input
-                  type="text"
-                  name="contact"
-                  value={editProfile.contact}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-            </form>
-            <div className="flex justify-end gap-2">
-              <button
-                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700"
-                onClick={handleUpdateProfile}
-              >
-                Save Changes
-              </button>
-            </div>
+          <div className="mb-5">
+            <img
+              src={profile.image}
+              alt="Profile"
+              className="w-32 h-32 rounded-full object-cover"
+            />
           </div>
+          <div className="mb-5">
+            <p className="text-xl font-semibold">{profile.name}</p>
+            <p>{profile.contact}</p>
+          </div>
+          <button
+            onClick={() => setIsEditing(true)}
+            className="btn btn-primary"
+          >
+            Update Profile
+          </button>
         </div>
+      ) : (
+        // Show form if editing
+        <form onSubmit={handleUpdateProfile} className="space-y-5">
+          <div className="form-control">
+            <label className="label font-bold" htmlFor="name">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={profile.name}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label font-bold" htmlFor="image">
+              Profile Image URL
+            </label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              value={profile.image}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label font-bold" htmlFor="contact">
+              Contact Details
+            </label>
+            <input
+              type="text"
+              id="contact"
+              name="contact"
+              value={profile.contact}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Save Changes
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsEditing(false)}
+            className="btn btn-secondary ml-3"
+          >
+            Cancel
+          </button>
+        </form>
       )}
     </div>
   );

@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { AuthContext } from '../../providers/AuthProvider'; // Update the path as needed
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const JoinCampModal = ({ toggleModal, camp }) => {
+    const { user } = useContext(AuthContext); // Assuming `user` contains logged-in user data
     const [participantInfo, setParticipantInfo] = useState({
-        participantName: '', // Replace with logged-in user info if available
-        participantEmail: '', // Replace with logged-in user info if available
+        participantName: '',
+        participantEmail: '',
         age: '',
         phoneNumber: '',
         gender: '',
         emergencyContact: '',
     });
+
+    // Prefill participant info with logged-in user data
+    useEffect(() => {
+        if (user) {
+            setParticipantInfo((prev) => ({
+                ...prev,
+                participantName: user.displayName || '', // Assuming `user.displayName` contains the user's name
+                participantEmail: user.email || '',     // Assuming `user.email` contains the user's email
+            }));
+        }
+    }, [user]);
 
     const handleChange = (e) => {
         setParticipantInfo({ ...participantInfo, [e.target.name]: e.target.value });
@@ -27,23 +42,46 @@ const JoinCampModal = ({ toggleModal, camp }) => {
         };
 
         try {
-            const res = await fetch('http://localhost:5000/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(registrationData),
-            });
+            const res = await axios.post('http://localhost:5000/registerCamps', registrationData);
 
-            const result = await res.json();
-            if (res.ok) {
-                alert('Registration successful!');
-                toggleModal(null);
+            if (res.status === 201) {
+                const updatedCamp = res.data.updatedCamp;
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registration Successful!',
+                    text: `You have successfully registered for the camp.`,
+                    confirmButtonText: 'OK',
+                });
+
+                // Update the camp state to reflect the new participant count
+                if (updatedCamp) {
+                    toggleModal({
+                        ...camp,
+                        participantCount: updatedCamp.participantCount,
+                    });
+                } else {
+                    toggleModal(null);
+                }
             } else {
-                alert(result.message || 'Registration failed.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registration Failed',
+                    text: res.data.message || 'An error occurred while registering.',
+                    confirmButtonText: 'Try Again',
+                });
             }
         } catch (err) {
-            console.error('Error registering:', err);
+            console.error('Error registering:', err.response?.data || err.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Registration Failed',
+                text: err.response?.data?.message || 'An error occurred while registering.',
+                confirmButtonText: 'Try Again',
+            });
         }
     };
+
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

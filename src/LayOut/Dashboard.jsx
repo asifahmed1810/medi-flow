@@ -40,12 +40,7 @@ const Dashboard = () => {
                                         Manage Registered Camps
                                     </NavLink>
                                 </li>
-                                <li>
-                                    <NavLink to={"/dashboard/allusers"}>
-                                        <MdManageHistory className="mr-2 text-lg" />
-                                        Manage Registered Camps
-                                    </NavLink>
-                                </li>
+                              
                             </>
                         ) : (
                             // User Links

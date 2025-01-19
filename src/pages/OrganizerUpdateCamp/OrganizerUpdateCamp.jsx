@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const OrganizerUpdateCamp = () => {
     const { campId } = useParams(); // Get the camp ID from the URL params
+    const axiosSecure=useAxiosSecure();
     const {
         register,
         handleSubmit,
@@ -17,7 +19,7 @@ const OrganizerUpdateCamp = () => {
     useEffect(() => {
         const fetchCampDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/camps/${campId}`);
+                const response = await axiosSecure.get(`/camps/${campId}`);
                 const { _id, ...campData } = response.data; // Exclude _id from prefilled values
 
                 Object.keys(campData).forEach((key) => {
@@ -40,7 +42,7 @@ const OrganizerUpdateCamp = () => {
         try {
             const { _id, ...updateData } = data; // Exclude _id from the update payload
 
-            const response = await axios.put(`http://localhost:5000/camps/${campId}`, updateData);
+            const response = await axiosSecure.put(`/camps/${campId}`, updateData);
 
             if (response.data) {
                 Swal.fire({
