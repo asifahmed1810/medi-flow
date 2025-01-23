@@ -23,6 +23,7 @@ import Payment from '../pages/Dashboard/Payment/Payment';
 import RegisteredCamp from '../pages/Dashboard/RegisteredCamp/RegisteredCamp';
 import CampCart from '../pages/Dashboard/CampCart/CampCart';
 import PaymentHistory from '../pages/Dashboard/PaymentHistory/PaymentHistory';
+import Errorpage from '../pages/ErrorPage/Errorpage';
 
 
 
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
         element:<PaymentHistory></PaymentHistory>
       }
     ]
+  },
+  {
+    path:'*',
+    element:<Errorpage></Errorpage>
   }
 ]);
 
