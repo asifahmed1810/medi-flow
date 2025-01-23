@@ -19,6 +19,10 @@ import ManageRegisteredCamp from '../pages/ManageRegisteredCamp/ManageRegistered
 import UserAnalyticsPage from '../pages/UserAnalyticsPage/UserAnalyticsPage';
 import UserProfile from '../pages/UserProfile/UserProfile';
 import AllUsers from '../pages/Allusers/AllUsers';
+import Payment from '../pages/Dashboard/Payment/Payment';
+import RegisteredCamp from '../pages/Dashboard/RegisteredCamp/RegisteredCamp';
+import CampCart from '../pages/Dashboard/CampCart/CampCart';
+import PaymentHistory from '../pages/Dashboard/PaymentHistory/PaymentHistory';
 
 
 
@@ -89,6 +93,22 @@ const router = createBrowserRouter([
       {
         path:'userProfile',
         element:<UserProfile></UserProfile>
+      },
+      {
+        path:'registeredCamps',
+        element:<RegisteredCamp></RegisteredCamp>
+      },
+      {
+        path:'campcart',
+        element:<CampCart></CampCart>
+      },
+      {
+        path:'payment',
+        element:<Payment></Payment>
+      },
+      {
+        path:'paymentHistory',
+        element:<PaymentHistory></PaymentHistory>
       }
     ]
   }
