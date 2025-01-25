@@ -47,13 +47,13 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm font-semibold dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         {links}
                     </ul>
                 </div>
                 <img className="w-14 h-14 rounded-full" src={medilogo} alt="Logo" />
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center font-semibold hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {links}
                 </ul>
