@@ -37,7 +37,7 @@ const CampCart = () => {
 
     return (
         <div>
-            <h2 className="text-4xl mb-8">Registered Camps</h2>
+            
             {camp.length === 0 ? (
                 <div className="text-center text-lg text-gray-500">
                     <p>No registered camps found.</p>

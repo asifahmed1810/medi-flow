@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
@@ -11,11 +10,11 @@ const ManageRegisteredCamp = () => {
     useEffect(() => {
         const fetchCamps = async () => {
             try {
-                const { data } = await axiosSecure.get("/registerCamps");
+                const { data } = await axiosSecure.get(`/allregisterCamps`);
                 setCamps(data);
-                setLoading(false);
             } catch (error) {
                 console.error("Error fetching camps:", error);
+            } finally {
                 setLoading(false);
             }
         };
@@ -26,7 +25,7 @@ const ManageRegisteredCamp = () => {
         try {
             const result = await Swal.fire({
                 title: "Are you sure?",
-                text: "You want to confirm this payment?",
+                text: "You want to confirm this registration?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -37,49 +36,47 @@ const ManageRegisteredCamp = () => {
             if (result.isConfirmed) {
                 await axiosSecure.put(`/registerCamps/${id}`, {
                     confirmationStatus: "Confirmed",
+                    paymentStatus: "Paid",
                 });
+
                 setCamps((prevCamps) =>
                     prevCamps.map((camp) =>
                         camp._id === id
-                            ? { ...camp, confirmationStatus: "Confirmed" }
+                            ? { ...camp, confirmationStatus: "Confirmed", paymentStatus: "Paid" }
                             : camp
                     )
                 );
-                Swal.fire("Confirmed!", "Payment has been confirmed.", "success");
+
+                Swal.fire("Confirmed!", "The registration has been confirmed and marked as Paid.", "success");
             }
         } catch (error) {
-            console.error("Error confirming payment:", error);
+            console.error("Error confirming registration:", error);
+            Swal.fire("Error!", "Failed to confirm the registration. Please try again.", "error");
         }
     };
 
     const handleCancel = async (id) => {
-        const campToCancel = camps.find((camp) => camp._id === id);
-        if (
-            campToCancel.paymentStatus === "Paid" &&
-            campToCancel.confirmationStatus === "Confirmed"
-        ) {
-            Swal.fire("Error", "You cannot cancel a confirmed and paid registration.", "error");
-            return;
-        }
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You want to cancel this registration?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, cancel it!",
+            });
 
-        const result = await Swal.fire({
-            title: "Are you sure?",
-            text: "You want to cancel this registration?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, cancel it!",
-        });
-
-        if (result.isConfirmed) {
-            try {
+            if (result.isConfirmed) {
                 await axiosSecure.delete(`/registerCamps/${id}`);
+
                 setCamps((prevCamps) => prevCamps.filter((camp) => camp._id !== id));
-                Swal.fire("Cancelled!", "The registration has been canceled.", "success");
-            } catch (error) {
-                console.error("Error canceling registration:", error);
+
+                Swal.fire("Cancelled", "The registration has been deleted successfully.", "success");
             }
+        } catch (error) {
+            console.error("Error cancelling registration:", error);
+            Swal.fire("Error!", "Failed to cancel the registration. Please try again.", "error");
         }
     };
 
@@ -129,17 +126,8 @@ const ManageRegisteredCamp = () => {
                                 </td>
                                 <td className="border px-4 py-2">
                                     <button
-                                        className={`bg-red-500 text-white px-3 py-1 rounded ${
-                                            camp.paymentStatus === "Paid" &&
-                                            camp.confirmationStatus === "Confirmed"
-                                                ? "opacity-50 cursor-not-allowed"
-                                                : ""
-                                        }`}
                                         onClick={() => handleCancel(camp._id)}
-                                        disabled={
-                                            camp.paymentStatus === "Paid" &&
-                                            camp.confirmationStatus === "Confirmed"
-                                        }
+                                        className="bg-red-500 text-white px-3 py-1 rounded"
                                     >
                                         Cancel
                                     </button>

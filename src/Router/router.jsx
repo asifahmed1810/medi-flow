@@ -24,6 +24,7 @@ import RegisteredCamp from '../pages/Dashboard/RegisteredCamp/RegisteredCamp';
 import CampCart from '../pages/Dashboard/CampCart/CampCart';
 import PaymentHistory from '../pages/Dashboard/PaymentHistory/PaymentHistory';
 import Errorpage from '../pages/ErrorPage/Errorpage';
+import PrivateRoute from './PrivateRoute';
 
 
 
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'camp-details/:campId',
-        element: <CampDetailsPage></CampDetailsPage>
+        element:  <PrivateRoute><CampDetailsPage></CampDetailsPage></PrivateRoute>
       },
       {
         path: 'login',
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'dashboard',
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
         path: 'organizerProfile',
@@ -89,27 +90,27 @@ const router = createBrowserRouter([
       },
       {
         path:'analytics',
-        element:<UserAnalyticsPage></UserAnalyticsPage>
+        element:<PrivateRoute><UserAnalyticsPage></UserAnalyticsPage></PrivateRoute>
       },
       {
         path:'userProfile',
-        element:<UserProfile></UserProfile>
+        element:<PrivateRoute><UserProfile></UserProfile></PrivateRoute>
       },
       {
         path:'registeredCamps',
-        element:<RegisteredCamp></RegisteredCamp>
+        element:<PrivateRoute><RegisteredCamp></RegisteredCamp></PrivateRoute>
       },
       {
         path:'campcart',
-        element:<CampCart></CampCart>
+        element:<PrivateRoute><CampCart></CampCart></PrivateRoute>
       },
       {
         path:'payment',
-        element:<Payment></Payment>
+        element:<PrivateRoute><Payment></Payment></PrivateRoute>
       },
       {
         path:'paymentHistory',
-        element:<PaymentHistory></PaymentHistory>
+        element:<PrivateRoute><PaymentHistory></PaymentHistory></PrivateRoute>
       }
     ]
   },
