@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { AuthContext } from '../../../providers/AuthProvider';
 
-const FeedbackSection= () => {
+const FeedbackSection = () => {
+    const { user } = useContext(AuthContext);
     const [feedback, setFeedback] = useState('');
     const [rating, setRating] = useState(5);
     const [participantEmail, setParticipantEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const axiosSecure=useAxiosSecure();
+    const axiosSecure = useAxiosSecure();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -83,7 +85,9 @@ const FeedbackSection= () => {
                 )}
                 <button
                     type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    className={`bg-blue-500 text-white px-4 py-2 rounded ${user ? 'hover:bg-blue-600' : 'opacity-50 cursor-not-allowed'
+                        }`}
+                    disabled={!user}
                 >
                     Submit Feedback
                 </button>

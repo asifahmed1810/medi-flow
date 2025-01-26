@@ -62,7 +62,7 @@ const Navbar = () => {
                 {user ? (
                     <div className="relative">
                         <img
-                            className="w-10 h-10 rounded-full cursor-pointer"
+                            className="w-14 h-14 rounded-full cursor-pointer"
                             src={user.photoURL || 'https://via.placeholder.com/150'}
                             alt="User Profile"
                             onClick={toggleDropdown}

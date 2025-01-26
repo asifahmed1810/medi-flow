@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure"; // Import the hook
 import { AuthContext } from "../../../providers/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const OrganizersProfile = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
@@ -126,56 +127,63 @@ const OrganizersProfile = () => {
     }
 
     return (
-        <div className="container mx-auto mt-10 p-5 max-w-2xl">
-            <h2 className="text-3xl font-bold mb-5">Manage Organizer Profile</h2>
-            <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="form-control">
-                    <label className="label font-bold" htmlFor="name">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={profile.name} // Prefilled with profile.name
-                        onChange={handleChange}
-                        className="input input-bordered w-full"
-                        required
-                    />
-                </div>
-                <div className="form-control">
-                    <label className="label font-bold" htmlFor="image">
-                        Profile Image URL
-                    </label>
-                    <input
-                        type="text"
-                        id="image"
-                        name="image"
-                        value={profile.image} // Prefilled with profile.image
-                        onChange={handleChange}
-                        className="input input-bordered w-full"
-                        required
-                    />
-                </div>
-                <div className="form-control">
-                    <label className="label font-bold" htmlFor="contact">
-                        Contact Details
-                    </label>
-                    <input
-                        type="text"
-                        id="contact"
-                        name="contact"
-                        value={profile.contact} // Prefilled with profile.contact
-                        onChange={handleChange}
-                        className="input input-bordered w-full"
-                        placeholder="Enter your contact details"
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">
-                    Update Profile
-                </button>
-            </form>
-        </div>
+        <>
+            <Helmet>
+                <title>Mediflow | Profile</title>
+            </Helmet>
+
+            <div className="container mx-auto mt-10 p-5 max-w-2xl">
+                <h2 className="text-3xl font-bold mb-5">Manage Organizer Profile</h2>
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="form-control">
+                        <label className="label font-bold" htmlFor="name">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={profile.name} // Prefilled with profile.name
+                            onChange={handleChange}
+                            className="input input-bordered w-full"
+                            required
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label className="label font-bold" htmlFor="image">
+                            Profile Image URL
+                        </label>
+                        <input
+                            type="text"
+                            id="image"
+                            name="image"
+                            value={profile.image} // Prefilled with profile.image
+                            onChange={handleChange}
+                            className="input input-bordered w-full"
+                            required
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label className="label font-bold" htmlFor="contact">
+                            Contact Details
+                        </label>
+                        <input
+                            type="text"
+                            id="contact"
+                            name="contact"
+                            value={profile.contact} // Prefilled with profile.contact
+                            onChange={handleChange}
+                            className="input input-bordered w-full"
+                            placeholder="Enter your contact details"
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-primary">
+                        Update Profile
+                    </button>
+                </form>
+            </div>
+        </>
+
     );
 };
 

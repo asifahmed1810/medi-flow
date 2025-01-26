@@ -1,9 +1,10 @@
 import React from "react";
 import { FaUser, FaList, FaSearch, FaEnvelope, FaHome } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
-import { MdManageHistory } from "react-icons/md";
+import { MdAnalytics, MdManageHistory, MdPayment } from "react-icons/md";
 import { NavLink, Outlet, Navigate } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
+import { FaCashRegister } from "react-icons/fa6";
 
 const Dashboard = () => {
     const [isAdmin] = useAdmin();
@@ -47,26 +48,29 @@ const Dashboard = () => {
                             <>
                                 <li>
                                     <NavLink to="/dashboard/analytics">
-                                        <FaHome className="mr-2" />
+                                       
+                                        <MdAnalytics className="mr-2" />
                                         Analytics
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/userProfile">
-                                        <FaList className="mr-2" />
+                                       
+                                        <FaUser className="mr-2" />
                                         Profile
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/campcart">
-                                        <FaList className="mr-2" />
+                                    <FaCashRegister className="mr-2"/>
                                         Registered Camps
                                     </NavLink>
                                 </li>
                               
                                 <li>
                                     <NavLink to="/dashboard/paymentHistory">
-                                        <FaList className="mr-2" />
+                                        
+                                        <MdPayment className="mr-2" />
                                         Payment History
                                     </NavLink>
                                 </li>

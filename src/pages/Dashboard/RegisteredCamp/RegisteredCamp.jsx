@@ -4,12 +4,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Import SweetAlert
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet';
 
 const RegisteredCamp = () => {
     const { user } = useContext(AuthContext);
     const [registeredCamps, setRegisteredCamps] = useState([]);
     const navigate = useNavigate();
-    const axiosSecure=useAxiosSecure();
+    const axiosSecure = useAxiosSecure();
 
     // Fetch registered camps for the user
     useEffect(() => {
@@ -66,71 +67,77 @@ const RegisteredCamp = () => {
     };
 
     return (
-        <div className="p-6">
-            <h2 className="text-2xl font-bold mb-6">Registered Camps</h2>
-            {registeredCamps.length > 0 ? (
-                <table className="table-auto w-full border-collapse border border-gray-300">
-                    <thead>
-                        <tr className="bg-gray-100">
-                            <th className="border border-gray-300 px-4 py-2">Camp Name</th>
-                            <th className="border border-gray-300 px-4 py-2">Camp Fees</th>
-                            <th className="border border-gray-300 px-4 py-2">Participant Name</th>
-                            <th className="border border-gray-300 px-4 py-2">Payment Status</th>
-                            <th className="border border-gray-300 px-4 py-2">Confirmation Status</th>
-                            <th className="border border-gray-300 px-4 py-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {registeredCamps.map(camp => (
-                            <tr key={camp.id}>
-                                <td className="border border-gray-300 px-4 py-2">{camp.name}</td>
-                                <td className="border border-gray-300 px-4 py-2">${camp.fees}</td>
-                                <td className="border border-gray-300 px-4 py-2">{user.displayName}</td>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    {camp.paymentStatus === 'paid' ? (
-                                        <button
-                                            className="px-4 py-2 bg-green-500 text-white rounded"
-                                            disabled
-                                        >
-                                            Paid
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="px-4 py-2 bg-blue-500 text-white rounded"
-                                            onClick={() => handlePayment(camp)}
-                                        >
-                                            Pay
-                                        </button>
-                                    )}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    {camp.confirmationStatus}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2 flex gap-2">
-                                    <button
-                                        className={`px-4 py-2 rounded ${camp.paymentStatus === 'paid' ? 'bg-gray-400 text-white' : 'bg-red-500 text-white'}`}
-                                        onClick={() => handleCancel(camp.id)}
-                                        disabled={camp.paymentStatus === 'paid'}
-                                    >
-                                        Cancel
-                                    </button>
-                                    {camp.paymentStatus === 'paid' && camp.confirmationStatus === 'Confirmed' && (
-                                        <button
-                                            className="px-4 py-2 bg-yellow-500 text-white rounded"
-                                            onClick={() => handleFeedback(camp.id)}
-                                        >
-                                            Feedback
-                                        </button>
-                                    )}
-                                </td>
+        <>
+            <Helmet>
+                <title>Mediflow | RegisteredCamps</title>
+            </Helmet>
+            <div className="p-6">
+                <h2 className="text-2xl font-bold mb-6">Registered Camps</h2>
+                {registeredCamps.length > 0 ? (
+                    <table className="table-auto w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr className="bg-gray-100">
+                                <th className="border border-gray-300 px-4 py-2">Camp Name</th>
+                                <th className="border border-gray-300 px-4 py-2">Camp Fees</th>
+                                <th className="border border-gray-300 px-4 py-2">Participant Name</th>
+                                <th className="border border-gray-300 px-4 py-2">Payment Status</th>
+                                <th className="border border-gray-300 px-4 py-2">Confirmation Status</th>
+                                <th className="border border-gray-300 px-4 py-2">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>No camps registered yet.</p>
-            )}
-        </div>
+                        </thead>
+                        <tbody>
+                            {registeredCamps.map(camp => (
+                                <tr key={camp.id}>
+                                    <td className="border border-gray-300 px-4 py-2">{camp.name}</td>
+                                    <td className="border border-gray-300 px-4 py-2">${camp.fees}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{user.displayName}</td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {camp.paymentStatus === 'paid' ? (
+                                            <button
+                                                className="px-4 py-2 bg-green-500 text-white rounded"
+                                                disabled
+                                            >
+                                                Paid
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="px-4 py-2 bg-blue-500 text-white rounded"
+                                                onClick={() => handlePayment(camp)}
+                                            >
+                                                Pay
+                                            </button>
+                                        )}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {camp.confirmationStatus}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2 flex gap-2">
+                                        <button
+                                            className={`px-4 py-2 rounded ${camp.paymentStatus === 'paid' ? 'bg-gray-400 text-white' : 'bg-red-500 text-white'}`}
+                                            onClick={() => handleCancel(camp.id)}
+                                            disabled={camp.paymentStatus === 'paid'}
+                                        >
+                                            Cancel
+                                        </button>
+                                        {camp.paymentStatus === 'paid' && camp.confirmationStatus === 'Confirmed' && (
+                                            <button
+                                                className="px-4 py-2 bg-yellow-500 text-white rounded"
+                                                onClick={() => handleFeedback(camp.id)}
+                                            >
+                                                Feedback
+                                            </button>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>No camps registered yet.</p>
+                )}
+            </div>
+        </>
+
     );
 };
 

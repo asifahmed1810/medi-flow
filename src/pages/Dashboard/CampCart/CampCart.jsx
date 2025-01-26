@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCampCart from "../../../hooks/useCampCart";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const CampCart = () => {
     const { camp = [], refetch, isLoading, error } = useCampCart();
@@ -36,76 +37,83 @@ const CampCart = () => {
     }
 
     return (
-        <div>
-            
-            {camp.length === 0 ? (
-                <div className="text-center text-lg text-gray-500">
-                    <p>No registered camps found.</p>
-                    <p>Go back to the camps list and register for one!</p>
-                </div>
-            ) : (
-                <div className="overflow-x-auto">
-                    <div className="flex justify-evenly mb-8">
-                        <h2 className="text-4xl">Camps: {camp.length}</h2>
-                        <h2 className="text-4xl">Total Price: {totalPrice}</h2>
-                        {camp.length ? <Link to="/dashboard/payment">
-                            <button className="btn btn-primary">Pay</button>
-                        </Link> :
-                            <button disabled className="btn btn-primary">Pay</button>
-                        }
+        <>
+            <Helmet>
+                <title>Mediflow | CampCart</title>
+            </Helmet>
 
+            <div>
+
+                {camp.length === 0 ? (
+                    <div className="text-center text-lg text-gray-500">
+                        <p>No registered camps found.</p>
+                        <p>Go back to the camps list and register for one!</p>
                     </div>
-                    <table className="table w-full">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Camp Name</th>
-                                <th>Participant</th>
-                                <th>Fee</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {camp.map((item, index) => (
-                                <tr key={item._id}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.campName}</td>
-                                    <td>{item.participantName}</td>
-                                    <td>${item.campFees}</td>
-                                    <td>
-                                        {item.paid ? (
-                                            <span className="text-green-600">Paid</span>
-                                        ) : (
-                                            <span className="text-red-600">Unpaid</span>
-                                        )}
-                                    </td>
-                                    <td>
+                ) : (
+                    <div className="overflow-x-auto">
+                        <div className="flex justify-evenly mb-8">
+                            <h2 className="text-4xl">Camps: {camp.length}</h2>
+                            <h2 className="text-4xl">Total Price: {totalPrice}</h2>
+                            {camp.length ? <Link to="/dashboard/payment">
+                                <button className="btn btn-primary">Pay</button>
+                            </Link> :
+                                <button disabled className="btn btn-primary">Pay</button>
+                            }
 
-                                        {!item.paid && (
-                                            <button
-                                                onClick={() => handleCancel(item._id)}
-                                                className="btn btn-warning mr-2"
-                                            >
-                                                Cancel
-                                            </button>
-                                        )}
-                                        {item.paid && item.confirmed && (
-                                            <button
-                                                onClick={() => handleFeedback(item._id)}
-                                                className="btn btn-success"
-                                            >
-                                                Feedback
-                                            </button>
-                                        )}
-                                    </td>
+                        </div>
+                        <table className="table w-full">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Camp Name</th>
+                                    <th>Participant</th>
+                                    <th>Fee</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
-        </div>
+                            </thead>
+                            <tbody>
+                                {camp.map((item, index) => (
+                                    <tr key={item._id}>
+                                        <td>{index + 1}</td>
+                                        <td>{item.campName}</td>
+                                        <td>{item.participantName}</td>
+                                        <td>${item.campFees}</td>
+                                        <td>
+                                            {item.paid ? (
+                                                <span className="text-green-600">Paid</span>
+                                            ) : (
+                                                <span className="text-red-600">Unpaid</span>
+                                            )}
+                                        </td>
+                                        <td>
+
+                                            {!item.paid && (
+                                                <button
+                                                    onClick={() => handleCancel(item._id)}
+                                                    className="btn btn-warning mr-2"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            )}
+                                            {item.paid && item.confirmed && (
+                                                <button
+                                                    onClick={() => handleFeedback(item._id)}
+                                                    className="btn btn-success"
+                                                >
+                                                    Feedback
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
+        </>
+
     );
 };
 

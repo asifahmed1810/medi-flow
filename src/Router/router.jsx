@@ -25,6 +25,7 @@ import CampCart from '../pages/Dashboard/CampCart/CampCart';
 import PaymentHistory from '../pages/Dashboard/PaymentHistory/PaymentHistory';
 import Errorpage from '../pages/ErrorPage/Errorpage';
 import PrivateRoute from './PrivateRoute';
+import AboutUs from '../shared/Footer/AboutUs';
 
 
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: 'contactUs',
         element: <JoinUs></JoinUs>
+      },
+      {
+        path:'aboutUs',
+        element:<AboutUs></AboutUs>
       },
       {
         path: 'availablecamps',
