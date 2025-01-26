@@ -6,6 +6,8 @@ import { Helmet } from "react-helmet";
 
 const OrganizerManageCamps = () => {
     const [camps, setCamps] = useState([]);
+    const [filteredCamps, setFilteredCamps] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure(); // Initialize the secure Axios instance
 
@@ -15,6 +17,7 @@ const OrganizerManageCamps = () => {
             try {
                 const response = await axiosSecure.get("/camps"); // Use the secure Axios instance
                 setCamps(response.data);
+                setFilteredCamps(response.data); // Initialize filteredCamps with all camps
             } catch (error) {
                 console.error("Error fetching camps:", error);
             }
@@ -39,6 +42,9 @@ const OrganizerManageCamps = () => {
                     setCamps((prevCamps) =>
                         prevCamps.filter((camp) => camp._id !== campId)
                     );
+                    setFilteredCamps((prevCamps) =>
+                        prevCamps.filter((camp) => camp._id !== campId)
+                    );
                     Swal.fire("Deleted!", "The camp has been deleted.", "success");
                 } catch (error) {
                     console.error("Error deleting camp:", error);
@@ -53,6 +59,20 @@ const OrganizerManageCamps = () => {
         navigate(`/dashboard/updateCamp/${campId}`);
     };
 
+    // Handle Search Input
+    const handleSearch = (e) => {
+        const query = e.target.value.toLowerCase();
+        setSearchQuery(query);
+
+        // Filter camps based on the search query
+        const filtered = camps.filter(
+            (camp) =>
+                camp.campName.toLowerCase().includes(query) ||
+                camp.healthcareProfessionalName.toLowerCase().includes(query)
+        );
+        setFilteredCamps(filtered);
+    };
+
     return (
         <>
             <Helmet>
@@ -61,6 +81,19 @@ const OrganizerManageCamps = () => {
 
             <div className="container mx-auto p-6">
                 <h1 className="text-2xl font-bold mb-4">Manage Camps</h1>
+
+                {/* Search Bar */}
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        placeholder="Search by camp name or healthcare professional"
+                        value={searchQuery}
+                        onChange={handleSearch}
+                        className="border border-gray-300 px-4 py-2 rounded w-1/2"
+                    />
+                </div>
+
+                {/* Table */}
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full border-collapse border border-gray-200">
                         <thead>
@@ -73,7 +106,7 @@ const OrganizerManageCamps = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {camps.map((camp) => (
+                            {filteredCamps.map((camp) => (
                                 <tr key={camp._id} className="text-center">
                                     <td className="border px-4 py-2">{camp.campName}</td>
                                     <td className="border px-4 py-2">{camp.dateTime}</td>
@@ -102,7 +135,6 @@ const OrganizerManageCamps = () => {
                 </div>
             </div>
         </>
-
     );
 };
 

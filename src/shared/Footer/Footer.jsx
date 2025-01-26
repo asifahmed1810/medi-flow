@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
         <footer className="footer footer-center mt-20 bg-base-200 text-base-content rounded p-10">
-            <nav className="grid grid-flow-col gap-4">
+            <nav className="grid grid-flow-col font-semibold gap-4">
                 <Link to={'/aboutUs'}>About us</Link>
                 <Link to={'/contactUs'}>Contact</Link>
-                <a className="link link-hover">Jobs</a>
+                <Link to={'/'}>Home</Link>
         
             </nav>
             <nav>
