@@ -42,7 +42,7 @@ const JoinCampModal = ({ toggleModal, camp }) => {
         };
 
         try {
-            const res = await axios.post('http://localhost:5000/registerCamps', registrationData);
+            const res = await axios.post('https://mediflow-server-eight.vercel.app/registerCamps', registrationData);
 
             if (res.status === 201) {
                 const updatedCamp = res.data.updatedCamp;

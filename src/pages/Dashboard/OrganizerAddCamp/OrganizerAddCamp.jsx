@@ -28,7 +28,7 @@ const OrganizerAddCamp = () => {
 
         try {
             // Post the form data to the backend
-            const response = await axios.post("http://localhost:5000/camps", data);
+            const response = await axios.post("https://mediflow-server-eight.vercel.app/camps", data);
 
             if (response.data) {
                 Swal.fire({

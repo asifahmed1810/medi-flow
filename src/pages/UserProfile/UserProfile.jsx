@@ -45,7 +45,7 @@ const UserProfile = () => {
 
     try {
       // Send the profile update request to the backend
-      const response = await axios.put('http://localhost:5000/users', {
+      const response = await axios.put('https://mediflow-server-eight.vercel.app/users', {
         email: user.email,  // Send email as part of the update request
         name: profile.name,
         image: profile.image,

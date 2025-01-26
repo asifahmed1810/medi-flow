@@ -20,7 +20,7 @@ const Register = () => {
             await updateUserProfile(data.name, data.photoURL);
     
             const userInfo = { name: data.name, email: data.email };
-            const res = await axios.post('http://localhost:5000/users', userInfo);
+            const res = await axios.post('https://mediflow-server-eight.vercel.app/users', userInfo);
     
             if (res.data.insertedId) {
                 reset();
