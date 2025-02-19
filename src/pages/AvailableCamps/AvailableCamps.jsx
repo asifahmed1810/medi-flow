@@ -72,18 +72,18 @@ const AvailableCamps = () => {
         <h1 className="text-2xl font-bold mb-6">Available Camps</h1>
 
         {/* Search and Sorting */}
-        <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="mb-6 flex  flex-col sm:flex-row justify-between items-center gap-4">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search camps..."
-            className="w-full sm:w-1/3 p-2 border rounded"
+            className="w-full bg-white dark:bg-gray-800 sm:w-1/3 p-2 border rounded"
           />
           <select
             value={sortCriteria}
             onChange={(e) => setSortCriteria(e.target.value)}
-            className="w-full sm:w-1/4 p-2 border rounded"
+            className="w-full bg-white dark:bg-gray-800 sm:w-1/4 p-2 border rounded"
           >
             <option value="">Sort By</option>
             <option value="Most Registered">Most Registered</option>

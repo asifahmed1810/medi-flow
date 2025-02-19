@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { AuthContext } from '../../../providers/AuthProvider';
@@ -24,14 +23,12 @@ const FeedbackSection = () => {
             });
 
             if (response.data.success) {
-                // Display SweetAlert on success
                 Swal.fire({
                     icon: 'success',
                     title: 'Feedback Submitted!',
                     text: 'Thank you for your valuable feedback.',
                 });
 
-                // Clear form fields
                 setFeedback('');
                 setRating(5);
                 setParticipantEmail('');
@@ -44,14 +41,14 @@ const FeedbackSection = () => {
     };
 
     return (
-        <div className="feedback-form mt-10 bg-gray-100 w-3/5 mx-auto p-6 rounded-lg shadow-lg">
+        <div className="feedback-form mt-10 bg-gray-100 dark:bg-gray-800 dark:text-white w-3/5 mx-auto p-6 rounded-lg shadow-lg transition-all">
             <h2 className="text-xl font-bold text-center mb-4">Submit Your Feedback</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">Your Email</label>
                     <input
                         type="email"
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         placeholder="Enter your email"
                         value={participantEmail}
                         onChange={(e) => setParticipantEmail(e.target.value)}
@@ -61,7 +58,7 @@ const FeedbackSection = () => {
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">Feedback</label>
                     <textarea
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         placeholder="Write your feedback here"
                         value={feedback}
                         onChange={(e) => setFeedback(e.target.value)}
@@ -74,7 +71,7 @@ const FeedbackSection = () => {
                         type="number"
                         min="1"
                         max="5"
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
                         required
@@ -85,8 +82,9 @@ const FeedbackSection = () => {
                 )}
                 <button
                     type="submit"
-                    className={`bg-blue-500 text-white px-4 py-2 rounded ${user ? 'hover:bg-blue-600' : 'opacity-50 cursor-not-allowed'
-                        }`}
+                    className={`bg-blue-500 dark:bg-blue-700 text-white px-4 py-2 rounded ${
+                        user ? 'hover:bg-blue-600 dark:hover:bg-blue-800' : 'opacity-50 cursor-not-allowed'
+                    }`}
                     disabled={!user}
                 >
                     Submit Feedback

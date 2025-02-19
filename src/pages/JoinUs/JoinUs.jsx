@@ -26,7 +26,7 @@ const JoinUs = () => {
                                     type="text"
                                     id="name"
                                     placeholder="Enter your name"
-                                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring focus:ring-indigo-300"
+                                    className="w-full  p-3 rounded-lg border border-gray-300 bg-white dark:bg-gray-800 focus:ring focus:ring-indigo-300"
                                 />
                             </div>
                             <div className="mb-6">
@@ -37,7 +37,7 @@ const JoinUs = () => {
                                     type="email"
                                     id="email"
                                     placeholder="Enter your email"
-                                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring focus:ring-indigo-300"
+                                    className="w-full p-3 rounded-lg border border-gray-300 bg-white dark:bg-gray-800 focus:ring focus:ring-indigo-300"
                                 />
                             </div>
                             <div className="mb-6">
@@ -48,7 +48,7 @@ const JoinUs = () => {
                                     id="message"
                                     rows="5"
                                     placeholder="Write your message here"
-                                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring focus:ring-indigo-300"
+                                    className="w-full bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-300 focus:ring focus:ring-indigo-300"
                                 ></textarea>
                             </div>
                             <button
