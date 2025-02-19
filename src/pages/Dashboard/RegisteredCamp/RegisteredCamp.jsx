@@ -69,34 +69,31 @@ const RegisteredCamp = () => {
     return (
         <>
             <Helmet>
-                <title>Mediflow | RegisteredCamps</title>
+                <title>Mediflow | Registered Camps</title>
             </Helmet>
-            <div className="p-6">
+            <div className="p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
                 <h2 className="text-2xl font-bold mb-6">Registered Camps</h2>
                 {registeredCamps.length > 0 ? (
-                    <table className="table-auto  w-full border-collapse border border-gray-300">
+                    <table className="table-auto w-full border-collapse border border-gray-300 dark:border-gray-700">
                         <thead>
-                            <tr className="bg-gray-100">
-                                <th className="border border-gray-300 px-4 py-2">Camp Name</th>
-                                <th className="border border-gray-300 px-4 py-2">Camp Fees</th>
-                                <th className="border border-gray-300 px-4 py-2">Participant Name</th>
-                                <th className="border border-gray-300 px-4 py-2">Payment Status</th>
-                                <th className="border border-gray-300 px-4 py-2">Confirmation Status</th>
-                                <th className="border border-gray-300 px-4 py-2">Actions</th>
+                            <tr className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white">
+                                <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Camp Name</th>
+                                <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Camp Fees</th>
+                                <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Participant Name</th>
+                                <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Payment Status</th>
+                                <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Confirmation Status</th>
+                                <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {registeredCamps.map(camp => (
-                                <tr key={camp.id}>
-                                    <td className="border border-gray-300 px-4 py-2">{camp.name}</td>
-                                    <td className="border border-gray-300 px-4 py-2">${camp.fees}</td>
-                                    <td className="border border-gray-300 px-4 py-2">{user.displayName}</td>
-                                    <td className="border border-gray-300 px-4 py-2">
+                                <tr key={camp.id} className="dark:bg-gray-800">
+                                    <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{camp.name}</td>
+                                    <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">${camp.fees}</td>
+                                    <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{user.displayName}</td>
+                                    <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
                                         {camp.paymentStatus === 'paid' ? (
-                                            <button
-                                                className="px-4 py-2 bg-green-500 text-white rounded"
-                                                disabled
-                                            >
+                                            <button className="px-4 py-2 bg-green-500 text-white rounded" disabled>
                                                 Paid
                                             </button>
                                         ) : (
@@ -108,10 +105,10 @@ const RegisteredCamp = () => {
                                             </button>
                                         )}
                                     </td>
-                                    <td className="border border-gray-300 px-4 py-2">
+                                    <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
                                         {camp.confirmationStatus}
                                     </td>
-                                    <td className="border border-gray-300 px-4 py-2 flex gap-2">
+                                    <td className="border border-gray-300 dark:border-gray-700 px-4 py-2 flex gap-2">
                                         <button
                                             className={`px-4 py-2 rounded ${camp.paymentStatus === 'paid' ? 'bg-gray-400 text-white' : 'bg-red-500 text-white'}`}
                                             onClick={() => handleCancel(camp.id)}
@@ -137,8 +134,8 @@ const RegisteredCamp = () => {
                 )}
             </div>
         </>
-
     );
+    
 };
 
 export default RegisteredCamp;

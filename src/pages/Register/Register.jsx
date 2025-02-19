@@ -44,71 +44,89 @@ const Register = () => {
             }
         }
     };
-    
 
     return (
         <>
             <Helmet>
                 <title>Mediflow | Sign Up</title>
             </Helmet>
-            <div className="hero mt-20 min-h-screen bg-base-100">
+            <div className="hero mt-20 min-h-screen bg-base-100 dark:bg-gray-900 dark:text-gray-200 transition-all">
                 <div className="hero-content flex-col lg:flex">
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl mb-8 font-bold">Sign up now!</h1>
-                       
                     </div>
-                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 dark:bg-gray-800 dark:text-white">
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Name</span>
+                                    <span className="label-text dark:text-gray-300">Name</span>
                                 </label>
-                                <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
+                                <input 
+                                    type="text" 
+                                    {...register("name", { required: true })} 
+                                    placeholder="Name" 
+                                    className="input input-bordered dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 {errors.name && <span className="text-red-600">Name is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Photo URL</span>
+                                    <span className="label-text dark:text-gray-300">Photo URL</span>
                                 </label>
-                                <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered" />
+                                <input 
+                                    type="text"  
+                                    {...register("photoURL", { required: true })} 
+                                    placeholder="Photo URL" 
+                                    className="input input-bordered dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Email</span>
+                                    <span className="label-text dark:text-gray-300">Email</span>
                                 </label>
-                                <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
+                                <input 
+                                    type="email"  
+                                    {...register("email", { required: true })} 
+                                    placeholder="Email" 
+                                    className="input input-bordered dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 {errors.email && <span className="text-red-600">Email is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Password</span>
+                                    <span className="label-text dark:text-gray-300">Password</span>
                                 </label>
-                                <input type="password"  {...register("password", {
-                                    required: true,
-                                    minLength: 6,
-                                    maxLength: 20,
-                                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                                })} placeholder="password" className="input input-bordered" />
+                                <input 
+                                    type="password"  
+                                    {...register("password", {
+                                        required: true,
+                                        minLength: 6,
+                                        maxLength: 20,
+                                        pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                    })} 
+                                    placeholder="Password" 
+                                    className="input input-bordered dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
                                 {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
                                 {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
                                 {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
-                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
+                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase, one lowercase, one number, and one special character.</p>}
                                 <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                    <a href="#" className="label-text-alt link link-hover dark:text-gray-400">Forgot password?</a>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                <input className="btn btn-primary" type="submit" value="Sign Up" />
+                                <input className="btn btn-primary dark:bg-gray-700 dark:hover:bg-gray-600" type="submit" value="Sign Up" />
                             </div>
                         </form>
                         <div className='p-4'> 
-                            <p><small>Already have an account?</small> <Link className='font-semibold' to={'/login'}>Login</Link></p>
-
-                            <SocialLogin></SocialLogin>
-
+                            <p>
+                                <small>Already have an account?</small> 
+                                <Link className='font-semibold dark:text-blue-400' to={'/login'}>Login</Link>
+                            </p>
+                            <SocialLogin />
                         </div>
-                        {/* <SocialLogin></SocialLogin> */}
                     </div>
                 </div>
             </div>

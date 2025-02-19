@@ -42,10 +42,9 @@ const CampCart = () => {
                 <title>Mediflow | CampCart</title>
             </Helmet>
 
-            <div>
-
+            <div className="p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
                 {camp.length === 0 ? (
-                    <div className="text-center text-lg text-gray-500">
+                    <div className="text-center text-lg text-gray-500 dark:text-gray-300">
                         <p>No registered camps found.</p>
                         <p>Go back to the camps list and register for one!</p>
                     </div>
@@ -54,40 +53,40 @@ const CampCart = () => {
                         <div className="flex justify-evenly mb-8">
                             <h2 className="text-4xl">Camps: {camp.length}</h2>
                             <h2 className="text-4xl">Total Price: {totalPrice}</h2>
-                            {camp.length ? <Link to="/dashboard/payment">
-                                <button className="btn btn-primary">Pay</button>
-                            </Link> :
+                            {camp.length ? (
+                                <Link to="/dashboard/payment">
+                                    <button className="btn btn-primary">Pay</button>
+                                </Link>
+                            ) : (
                                 <button disabled className="btn btn-primary">Pay</button>
-                            }
-
+                            )}
                         </div>
-                        <table className="table w-full">
+                        <table className="table w-full border-collapse border border-gray-300 dark:border-gray-700">
                             <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Camp Name</th>
-                                    <th>Participant</th>
-                                    <th>Fee</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                <tr className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white">
+                                    <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">#</th>
+                                    <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Camp Name</th>
+                                    <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Participant</th>
+                                    <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Fee</th>
+                                    <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Status</th>
+                                    <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {camp.map((item, index) => (
-                                    <tr key={item._id}>
-                                        <td>{index + 1}</td>
-                                        <td>{item.campName}</td>
-                                        <td>{item.participantName}</td>
-                                        <td>${item.campFees}</td>
-                                        <td>
+                                    <tr key={item._id} className="dark:bg-gray-800">
+                                        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{index + 1}</td>
+                                        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{item.campName}</td>
+                                        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{item.participantName}</td>
+                                        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">${item.campFees}</td>
+                                        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
                                             {item.paid ? (
                                                 <span className="text-green-600">Paid</span>
                                             ) : (
                                                 <span className="text-red-600">Unpaid</span>
                                             )}
                                         </td>
-                                        <td>
-
+                                        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
                                             {!item.paid && (
                                                 <button
                                                     onClick={() => handleCancel(item._id)}
@@ -113,7 +112,6 @@ const CampCart = () => {
                 )}
             </div>
         </>
-
     );
 };
 
