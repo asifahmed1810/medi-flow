@@ -1,11 +1,31 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import medilogo from '../../assets/medilogo.png';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
+import { CiLight } from "react-icons/ci";
+import { MdDarkMode } from "react-icons/md";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+    // Apply theme on mount
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('theme', theme); // Store theme preference
+    }, [theme]);
+
+    // Toggle theme function
+    const toggleTheme = () => {
+        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    };
 
     // Handle Logout
     const handleLogOut = () => {
@@ -28,7 +48,7 @@ const Navbar = () => {
     );
 
     return (
-        <div className="navbar fixed z-10 w-full  top-0 bg-cyan-100 rounded-xl px-20">
+        <div className="navbar fixed z-10 w-full top-0 bg-cyan-100 dark:bg-gray-900 dark:text-white rounded-xl px-20 transition-colors">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -47,7 +67,7 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm font-semibold dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm font-semibold dropdown-content bg-base-100 dark:bg-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         {links}
                     </ul>
                 </div>
@@ -58,7 +78,15 @@ const Navbar = () => {
                     {links}
                 </ul>
             </div>
-            <div className="navbar-end">
+            <div className="navbar-end space-x-3">
+                {/* Theme Toggle Button */}
+                <button
+                    className="btn bg-base-300 dark:bg-gray-700"
+                    onClick={toggleTheme}
+                >
+                    {theme === 'light' ? <MdDarkMode className="text-xl font-bold" /> : <CiLight className="text-xl font-bold" />}
+                </button>
+
                 {user ? (
                     <div className="relative">
                         <img
@@ -68,19 +96,19 @@ const Navbar = () => {
                             onClick={toggleDropdown}
                         />
                         {isDropdownOpen && (
-                            <ul className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                                <li className="px-4 py-2 text-gray-700">{user.displayName || 'User'}</li>
+                            <ul className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10">
+                                <li className="px-4 py-2 text-gray-700 dark:text-white">{user.displayName || 'User'}</li>
                                 <li>
                                     <Link
                                         to="/dashboard"
-                                        className="block px-4 py-2 hover:bg-gray-100 text-gray-700">
+                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-white">
                                         Dashboard
                                     </Link>
                                 </li>
                                 <li>
                                     <button
                                         onClick={handleLogOut}
-                                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700">
+                                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-white">
                                         Logout
                                     </button>
                                 </li>
@@ -89,7 +117,7 @@ const Navbar = () => {
                     </div>
                 ) : (
                     <Link to={'/login'}>
-                        <button className="btn">Join US</button>
+                        <button className="btn">Join Us</button>
                     </Link>
                 )}
             </div>

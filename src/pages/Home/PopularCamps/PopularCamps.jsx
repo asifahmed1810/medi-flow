@@ -39,7 +39,7 @@ const PopularCamps = () => {
             {/* Popular Camps Grid */}
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {popularCamps.map((camp) => (
-                    <div key={camp._id} className="bg-white p-4 rounded shadow">
+                    <div key={camp._id} className="bg-white dark:bg-gray-800 p-4 rounded shadow">
                         <img
                             src={camp.image}
                             alt={camp.campName}

@@ -106,7 +106,7 @@ const AvailableCamps = () => {
             }`}
         >
           {filteredCamps.map((camp) => (
-            <div key={camp._id} className="bg-white p-4 rounded shadow">
+            <div key={camp._id} className="bg-white dark:bg-gray-800 p-4 rounded shadow">
               <img
                 src={camp.image}
                 alt={camp.campName}
