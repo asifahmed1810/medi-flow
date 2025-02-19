@@ -69,7 +69,7 @@ const OrganizerAddCamp = () => {
                             type="text"
                             id="campName"
                             {...register("campName", { required: "Camp Name is required" })}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                         />
                         {errors.campName && <p className="text-red-500 text-sm">{errors.campName.message}</p>}
                     </div>
@@ -83,7 +83,7 @@ const OrganizerAddCamp = () => {
                             type="text"
                             id="image"
                             {...register("image", { required: "Image URL is required" })}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                         />
                         {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
                     </div>
@@ -97,7 +97,7 @@ const OrganizerAddCamp = () => {
                             type="number"
                             id="campFees"
                             {...register("campFees", { required: "Camp Fees are required", min: { value: 0, message: "Camp Fees cannot be negative" } })}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                         />
                         {errors.campFees && <p className="text-red-500 text-sm">{errors.campFees.message}</p>}
                     </div>
@@ -111,7 +111,7 @@ const OrganizerAddCamp = () => {
                             type="datetime-local"
                             id="dateTime"
                             {...register("dateTime", { required: "Date & Time is required" })}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                         />
                         {errors.dateTime && <p className="text-red-500 text-sm">{errors.dateTime.message}</p>}
                     </div>
@@ -125,7 +125,7 @@ const OrganizerAddCamp = () => {
                             type="text"
                             id="location"
                             {...register("location", { required: "Location is required" })}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                         />
                         {errors.location && <p className="text-red-500 text-sm">{errors.location.message}</p>}
                     </div>
@@ -139,7 +139,7 @@ const OrganizerAddCamp = () => {
                             type="text"
                             id="healthcareProfessionalName"
                             {...register("healthcareProfessionalName", { required: "Healthcare Professional Name is required" })}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                         />
                         {errors.healthcareProfessionalName && <p className="text-red-500 text-sm">{errors.healthcareProfessionalName.message}</p>}
                     </div>
@@ -153,7 +153,7 @@ const OrganizerAddCamp = () => {
                             type="number"
                             id="participantCount"
                             {...register("participantCount", { required: "Participant count is required", min: { value: 0, message: "Participant count cannot be negative" } })}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                         />
                         {errors.participantCount && <p className="text-red-500 text-sm">{errors.participantCount.message}</p>}
                     </div>
@@ -166,7 +166,7 @@ const OrganizerAddCamp = () => {
                         <textarea
                             id="description"
                             {...register("description", { required: "Description is required" })}
-                            className="textarea textarea-bordered w-full"
+                            className="textarea bg-white dark:bg-gray-800  textarea-bordered w-full"
                             rows="4"
                         />
                         {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}

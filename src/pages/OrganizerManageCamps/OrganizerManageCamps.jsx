@@ -89,15 +89,15 @@ const OrganizerManageCamps = () => {
                         placeholder="Search by camp name or healthcare professional"
                         value={searchQuery}
                         onChange={handleSearch}
-                        className="border border-gray-300 px-4 py-2 rounded w-1/2"
+                        className="border bg-white dark:bg-gray-800  border-gray-300 px-4 py-2 rounded w-1/2"
                     />
                 </div>
 
                 {/* Table */}
                 <div className="overflow-x-auto">
-                    <table className="table-auto w-full border-collapse border border-gray-200">
+                    <table className="table-auto  w-full border-collapse border border-gray-200">
                         <thead>
-                            <tr className="bg-gray-100">
+                            <tr className="bg-white dark:bg-gray-800 ">
                                 <th className="border px-4 py-2">Name</th>
                                 <th className="border px-4 py-2">Date & Time</th>
                                 <th className="border px-4 py-2">Location</th>

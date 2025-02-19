@@ -74,7 +74,7 @@ const RegisteredCamp = () => {
             <div className="p-6">
                 <h2 className="text-2xl font-bold mb-6">Registered Camps</h2>
                 {registeredCamps.length > 0 ? (
-                    <table className="table-auto w-full border-collapse border border-gray-300">
+                    <table className="table-auto  w-full border-collapse border border-gray-300">
                         <thead>
                             <tr className="bg-gray-100">
                                 <th className="border border-gray-300 px-4 py-2">Camp Name</th>

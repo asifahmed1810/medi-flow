@@ -96,7 +96,7 @@ const ManageRegisteredCamp = () => {
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full border-collapse border border-gray-300">
                         <thead>
-                            <tr className="bg-gray-200">
+                            <tr className="bg-white dark:bg-gray-800 ">
                                 <th className="border px-4 py-2">Camp Name</th>
                                 <th className="border px-4 py-2">Camp Fees</th>
                                 <th className="border px-4 py-2">Participant Name</th>

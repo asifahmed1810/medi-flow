@@ -145,7 +145,7 @@ const OrganizersProfile = () => {
                             name="name"
                             value={profile.name} // Prefilled with profile.name
                             onChange={handleChange}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                             required
                         />
                     </div>
@@ -159,7 +159,7 @@ const OrganizersProfile = () => {
                             name="image"
                             value={profile.image} // Prefilled with profile.image
                             onChange={handleChange}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                             required
                         />
                     </div>
@@ -173,7 +173,7 @@ const OrganizersProfile = () => {
                             name="contact"
                             value={profile.contact} // Prefilled with profile.contact
                             onChange={handleChange}
-                            className="input input-bordered w-full"
+                            className="input bg-white dark:bg-gray-800  input-bordered w-full"
                             placeholder="Enter your contact details"
                         />
                     </div>
