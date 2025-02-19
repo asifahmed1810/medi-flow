@@ -123,14 +123,17 @@ const CheckoutForm = ({ campItem }) => {
 
 
     return (
+        <div className="p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
         <form onSubmit={handleSubmit}>
-            <CardElement />
+            <CardElement className="bg-gray-100 dark:bg-gray-800 p-3 rounded-md" />
             <button className="btn btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
                 Pay
             </button>
             {error && <p className="text-red-600">{error}</p>}
             {transactionId && <p className="text-green-600">Transaction ID: {transactionId}</p>}
         </form>
+    </div>
+    
     );
 };
 

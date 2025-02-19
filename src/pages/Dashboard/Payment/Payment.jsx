@@ -17,8 +17,8 @@ const Payment = () => {
             </Helmet>
 
             <div>
-                <h2 className="text-2xl">Payment for {campItem?.campName}</h2>
-                <p className="text-lg">Amount: ${campItem?.campFees}</p>
+                <h2 className="text-2xl">Payment</h2>
+             
                 <div>
                     <Elements stripe={stripePromise}>
                         <CheckoutForm campItem={campItem} /> {/* Pass camp item */}
