@@ -2,9 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../providers/AuthProvider'; // Update the path as needed
 import Swal from 'sweetalert2';
 import axios from 'axios';
-
 const JoinCampModal = ({ toggleModal, camp }) => {
-    const { user } = useContext(AuthContext); // Assuming `user` contains logged-in user data
+    const { user } = useContext(AuthContext);
     const [participantInfo, setParticipantInfo] = useState({
         participantName: '',
         participantEmail: '',
@@ -14,13 +13,12 @@ const JoinCampModal = ({ toggleModal, camp }) => {
         emergencyContact: '',
     });
 
-    // Prefill participant info with logged-in user data
     useEffect(() => {
         if (user) {
             setParticipantInfo((prev) => ({
                 ...prev,
-                participantName: user.displayName || '', // Assuming `user.displayName` contains the user's name
-                participantEmail: user.email || '',     // Assuming `user.email` contains the user's email
+                participantName: user.displayName || '',
+                participantEmail: user.email || '',
             }));
         }
     }, [user]);
@@ -31,7 +29,6 @@ const JoinCampModal = ({ toggleModal, camp }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const registrationData = {
             ...participantInfo,
             campId: camp._id,
@@ -46,7 +43,6 @@ const JoinCampModal = ({ toggleModal, camp }) => {
 
             if (res.status === 201) {
                 const updatedCamp = res.data.updatedCamp;
-
                 Swal.fire({
                     icon: 'success',
                     title: 'Registration Successful!',
@@ -54,7 +50,6 @@ const JoinCampModal = ({ toggleModal, camp }) => {
                     confirmButtonText: 'OK',
                 });
 
-                // Update the camp state to reflect the new participant count
                 if (updatedCamp) {
                     toggleModal({
                         ...camp,
@@ -82,10 +77,9 @@ const JoinCampModal = ({ toggleModal, camp }) => {
         }
     };
 
-
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded shadow-lg w-96">
+            <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-6 rounded shadow-lg w-96">
                 <h2 className="text-xl font-bold mb-4">Join Medical Camp</h2>
                 <form onSubmit={handleSubmit}>
                     <p className="font-semibold">Camp Name: {camp.campName}</p>
@@ -98,7 +92,7 @@ const JoinCampModal = ({ toggleModal, camp }) => {
                             placeholder="Participant Name"
                             value={participantInfo.participantName}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded mb-2"
+                            className="w-full p-2 border rounded mb-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                             required
                         />
                         <input
@@ -107,7 +101,7 @@ const JoinCampModal = ({ toggleModal, camp }) => {
                             placeholder="Participant Email"
                             value={participantInfo.participantEmail}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded mb-2"
+                            className="w-full p-2 border rounded mb-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                             required
                         />
                         <input
@@ -116,7 +110,7 @@ const JoinCampModal = ({ toggleModal, camp }) => {
                             placeholder="Age"
                             value={participantInfo.age}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded mb-2"
+                            className="w-full p-2 border rounded mb-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                             required
                         />
                         <input
@@ -124,7 +118,7 @@ const JoinCampModal = ({ toggleModal, camp }) => {
                             placeholder="Phone Number"
                             value={participantInfo.phoneNumber}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded mb-2"
+                            className="w-full p-2 border rounded mb-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                             required
                         />
                         <input
@@ -132,7 +126,7 @@ const JoinCampModal = ({ toggleModal, camp }) => {
                             placeholder="Gender"
                             value={participantInfo.gender}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded mb-2"
+                            className="w-full p-2 border rounded mb-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                             required
                         />
                         <input
@@ -140,20 +134,20 @@ const JoinCampModal = ({ toggleModal, camp }) => {
                             placeholder="Emergency Contact"
                             value={participantInfo.emergencyContact}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded mb-4"
+                            className="w-full p-2 border rounded mb-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                             required
                         />
                         <div className="flex justify-end">
                             <button
                                 onClick={() => toggleModal(null)}
                                 type="button"
-                                className="px-4 py-2 bg-gray-300 text-gray-800 rounded mr-2"
+                                className="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white rounded mr-2"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="px-4 py-2 bg-blue-500 text-white rounded"
+                                className="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded"
                             >
                                 Register
                             </button>
